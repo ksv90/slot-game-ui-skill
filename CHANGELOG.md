@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/ksv90/slot-game-ui-skill/compare/v1.0.1...v1.0.2) (2026-10-13)
+
+
+### Bug Fixes
+
+* fill gaps in slot UI catalog ([420ff05](https://github.com/ksv90/slot-game-ui-skill/commit/420ff056a4c56331906387d1dbcff45e7d984c3b))
+
 ## [1.0.1](https://github.com/ksv90/slot-game-ui-skill/compare/v1.0.0...v1.0.1) (2026-10-13)
 
 
