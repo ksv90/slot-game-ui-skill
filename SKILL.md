@@ -1,6 +1,6 @@
 ---
 name: slot-game-ui-skill
-description: "Design, implement, refactor, or review slot game UI: spin and bet controls, balances and wins, bonus counters, gifts, autoplay, dialogs, loading, history, replay, and optional game features. Use for slot interface tasks in any framework or engine. Excludes slot mathematics, RNG design, and standalone casino account or payment systems."
+description: "Design, implement, refactor, or review framework-neutral slot game UI: controls, game and platform surfaces, optional features, states, and recovery. Use for slot interface tasks in any engine. Excludes slot mathematics, RNG design, and standalone account or payment systems."
 license: MIT
 metadata:
   version: "1.0.1" # x-release-please-version
@@ -41,9 +41,10 @@ approved design references before introducing behavior.
 
 Use [core elements](references/catalog-core.md) for the initial inventory. Read
 [feature extensions](references/catalog-features.md) only for selected mechanics,
-and [dialogs](references/catalog-dialogs.md) for windows and overlays. Location
-inside a menu or settings does not remove an element from the inventory. Separate
-a reusable dialog shell from each dialog's content and actions.
+cross-cutting surfaces, or host integration, and [dialogs](references/catalog-dialogs.md)
+for windows and overlays. Location inside a menu or settings does not remove an
+element from the inventory. Separate a reusable dialog shell from each dialog's
+content and actions.
 
 Capture scope and unresolved decisions in the
 [project profile template](assets/project-profile.template.yaml), or in the
@@ -54,10 +55,12 @@ payment navigation just because they occur in the catalog.
 ## Establish behavior before wiring controls
 
 Read [state model](references/state-model.md) for commands, server uncertainty,
-presentation, recovery, and feature transitions. Adapt names to the existing game;
+presentation, recovery, feature transitions, and cross-cutting component states.
+Adapt names to the existing game;
 do not replace its architecture solely to match this illustrative model.
 Read [interaction contracts](references/interaction-contracts.md) to settle control
-ownership, amounts, counters, dialogs, and capability gates.
+ownership, amounts, counters, dialogs, capability gates, and optional library
+composition.
 
 Essential correctness constraints for integrations with wagers or authoritative
 outcomes:

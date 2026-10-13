@@ -11,8 +11,8 @@ The skill itself needs no runtime dependencies or network access.
 | --- | --- |
 | [SKILL.md](SKILL.md) | Agent entrypoint, scope, workflow, and correctness constraints |
 | [Core catalog](references/catalog-core.md) | 36 entries from the original user-authored list |
-| [Optional features](references/catalog-features.md) | 30 grouped feature families from the available expanded catalog |
-| [Dialogs](references/catalog-dialogs.md) | 18 scenarios or optional families of windows and overlays |
+| [Optional features](references/catalog-features.md) | 40 grouped families from the complete expanded catalog |
+| [Dialogs](references/catalog-dialogs.md) | 19 scenarios or optional families of windows and overlays |
 | [State model](references/state-model.md) | Operations, presentation, features, autoplay, and recovery |
 | [Interaction contracts](references/interaction-contracts.md) | Ownership, amounts, counters, guards, and project decisions |
 | [Layout and accessibility](references/layout-accessibility.md) | Layout, input, focus, localization, and motion |
@@ -26,18 +26,35 @@ Core means an element explicitly named in the original brief, not a required
 feature in every game. Optional suggestions, engineering recommendations, and
 project-specific decisions remain separate.
 
-The skill uses both the original list and the later detailed “Catalog of slot game
-UI components.” The original user list was available in full. The detailed assistant
-answer was available only as a 20,000-character excerpt ending within generic modal
-components. Visible extensions were grouped into optional feature/dialog catalogs;
-this skill does not claim a complete or verbatim transfer of the expanded answer.
+The skill uses both the complete original user list and the complete later
+assistant-generated “Catalog of slot game UI components.” All 21 sections and its
+four-level composition proposal were reviewed and normalized into the catalogs,
+state model, and checklists. The expansion remains optional and project-dependent;
+this is not a verbatim transcript or a requirement to implement every item.
 
 ## Install and use
 
-Download **skill.zip** from the
-[latest GitHub Release](https://github.com/ksv90/slot-game-ui-skill/releases/latest).
-The archive contains one folder named `slot-game-ui-skill`. Follow
-[INSTALL.md](INSTALL.md), then invoke `$slot-game-ui-skill` in a compatible host.
+For a first-time installation in Codex on macOS, download the ready-made archive
+from the [latest GitHub Release](https://github.com/ksv90/slot-game-ui-skill/releases/latest)
+and unpack it into your personal skills directory. No repository clone or build
+tools are needed:
+
+```sh
+cd "$(mktemp -d)"
+curl -fL -O https://github.com/ksv90/slot-game-ui-skill/releases/latest/download/skill.zip
+curl -fL -O https://github.com/ksv90/slot-game-ui-skill/releases/latest/download/skill.zip.sha256
+if shasum -a 256 -c skill.zip.sha256; then
+  mkdir -p "$HOME/.agents/skills"
+  unzip -q skill.zip -d "$HOME/.agents/skills"
+fi
+```
+
+The checksum command should report `skill.zip: OK`; stop if it fails. The archive
+creates `~/.agents/skills/slot-game-ui-skill`. Open a new Codex chat and invoke
+`$slot-game-ui-skill`; restart Codex if the skill does not appear. For upgrades,
+other platforms, or project-scoped installation, follow [INSTALL.md](INSTALL.md)
+instead of unpacking over an existing skill folder.
+
 For environments without a loader, ask the agent to read SKILL.md and the relevant
 references on demand. OpenAI metadata in `agents/openai.yaml` is optional for other
 hosts; automatic discovery depends on the application.

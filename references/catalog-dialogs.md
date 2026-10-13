@@ -1,7 +1,7 @@
 # Dialogs, windows, overlays
 
 Core scenarios below trace to the user list; optional scenarios summarize the
-available assistant expansion. Shell behavior and priorities are engineering
+complete assistant expansion. Shell behavior and priorities are engineering
 recommendations. Choose a dialog, panel, scene, drawer, toast, or inline surface
 according to the project; the catalog does not require every message to be modal.
 
@@ -32,14 +32,19 @@ according to the project; the catalog does not require every message to be modal
 | D16 | Runtime errors | Unknown/server/network/disconnect/reconnect/timeout/auth/session expiry/unavailable/maintenance/resource failure/version mismatch/update/malformed response/unrecoverable round/another tab/config error/reconnected/processing/unknown command outcome |
 | D17 | Events/rewards | Tournament start/end/reward/rank change/new event/end/daily reward/available reward/achievement/level/task completion |
 | D18 | Gamble/mini-games | Offer/entry/rules/risk selection/result/loss/end/mini-game offer/start/object selection/result/end |
+| D19 | Platform/session notices | Reality check, configured limits, regional restriction, session end, support or account handoff when the host provides them |
 
 ## Reusable shell contract (engineering recommendations)
 
-Record title/body/icon/illustration/status/data sections/action labels and intent,
-blocking scope, dismissibility, loading/error state, focus entry/return, keyboard
-handling, and responsive behavior. A Close icon, backdrop tap, Back, and Escape
-must follow the same dismiss policy. A pending purchase may allow dismissal of its
-surface while retaining the transaction lock and pending status elsewhere.
+Record title/subtitle/body/icon/illustration/status/data sections/action labels
+and intent, blocking scope, dismissibility, loading/error state, focus entry/return,
+keyboard handling, and responsive behavior. Optional shell parts include a secondary
+action, auto-close timer/countdown, “do not show again” choice, scrollable content,
+progress, input/select, embedded mini-game field, reward animation, and backdrop.
+Choose these only when the scenario needs them; a reusable shell does not make every
+message modal. A Close icon, backdrop tap, Back, and Escape must follow the same
+dismiss policy. A pending purchase may allow dismissal of its surface while
+retaining the transaction lock and pending status elsewhere.
 
 Define project priority among critical failures, pending financial operations,
 required feature transitions, user-opened panels, and promotional notices. This

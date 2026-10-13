@@ -48,6 +48,33 @@ parts relevant to the task; a small label fix does not require a full game audit
 - [ ] Loading progress is real or explicitly indeterminate; asset and server wait differ.
 - [ ] Audio/visual settings persist as selected; capability limits are visible.
 - [ ] Currency precision, localized strings/counters, and history timezone verified.
+- [ ] Selected notices are non-blocking or blocking as intended; timers use the
+      correct clock and do not imply unconfirmed completion.
+- [ ] Host-owned support, limits, identity, and legal surfaces use real host data
+      and do not claim unsupported availability or rules.
+- [ ] Tutorial and interactive field objects preserve focus, accepted intents,
+      and round state through skip, interruption, and return when selected.
+
+## Catalog scenario coverage
+
+For a new UI or broad audit, choose applicable scenarios from the full expanded
+catalog and map each to selected elements, state transitions, and test evidence.
+This is a coverage prompt, not a claim that every game has these mechanics.
+
+| Scenario | UI areas to inspect |
+| --- | --- |
+| Ordinary spin; spin with win | Spin/Skip, bet, balance, win, combination highlight |
+| Cascade series | Cascade counter, multipliers, symbol removal/fall, chain total |
+| Autoplay | Remaining/completed count, stop control, stop reason |
+| Free Spins entry and active play | Continue, counter, win total, field theme, bet eligibility |
+| Hold & Win | Respin count/reset, locked symbols, cell progress |
+| Buy Bonus | Type/price selection, confirmation, accepted debit, recovery |
+| Gamble | Eligible win, risk choice, potential result, Collect/exit |
+| Gifts | Gift-round count, terms, source, completion |
+| Tournament | Points, rank, timer, result freshness |
+| Connection loss; unfinished-round return | Unknown operation, locks, reconciliation, restored presentation |
+| Max Win | Confirmed final amount, limit source, celebration/Skip |
+| Exit during an active round | Confirmation, host navigation, unresolved-operation policy |
 
 ## Scenario matrix (choose applicable rows)
 

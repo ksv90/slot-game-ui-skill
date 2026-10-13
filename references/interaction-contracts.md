@@ -12,6 +12,17 @@ display unit/scope; command and event mapping; loading/error/empty/unavailable;
 modal/feature dependencies; focus; layouts; persistence; recovery; verification.
 Use existing project formats; do not mandate a component class or reactive library.
 
+## Optional library composition
+
+The expanded catalog proposes four useful levels for a reusable UI library:
+primitives (Button, Counter, Timer, Modal), game components (SpinButton,
+BetSelector, FreeSpinsCounter), modules (MainControls, AutoplayDialog,
+TournamentPanel), and game UI states (BaseGame, Spinning, FreeSpins, Recovery).
+This is a design aid, not a required hierarchy or framework. Separate visual
+reuse from game semantics: autoplay, free-spin, and respin counters may share a
+Counter primitive while keeping distinct source events, scopes, formatting, and
+transition rules. A game mechanism or scenario is not automatically a widget.
+
 ## Decision prompts
 
 | Area | Resolve from project evidence | Common confusion to prevent |
@@ -34,6 +45,9 @@ Use existing project formats; do not mandate a component class or reactive libra
 | Navigation | Host callbacks, fullscreen support/exit, safe quit/resume | Local fullscreen flag is always the browser/platform state |
 | Progress/wait | Real progress source, stages/readiness, safe retry, delay copy | Fake percentage implies server certainty |
 | Settings | Audio channels/master, supported visuals/locale/quality/save/reset | Every renderer supports every preference |
+| Notices/timers | Transient versus blocking message, priority, lifetime, clock source, expiry | A toast replaces required action or a local countdown grants a reward |
+| Mini-games/field objects | Choice phase, hit area, stop-and-collect, confirm, resume | A visual selection implies an accepted authoritative choice |
+| Platform surfaces | Host-owned links, limits, identifiers, support, legal copy | Game client invents account state or jurisdiction rules |
 
 ## Ownership boundary
 

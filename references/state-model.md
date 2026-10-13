@@ -5,6 +5,22 @@ required state-machine implementation. Map it to an existing engine's vocabulary
 Keep distinctions even when the implementation combines labels. Use an offline
 authoritative adapter for prototypes; label simulated outcomes.
 
+## Component state vocabulary
+
+The expanded catalog also lists cross-cutting states. Treat them as dimensions to
+consider for each selected component, not one enum or a requirement to implement
+every state: Default, Hover, Pressed, Focused, Disabled, Hidden, Loading, Pending,
+Active, Selected, Completed, Success, Error, Locked, Expired, Attention, and
+Transitioning. For touch-only UI, Hover may not apply; Hidden differs from a
+visible disabled control. Record which states matter and what the user sees and
+can do in each.
+
+A control can change semantic role as well as appearance. A shared button location
+may present Spin, Skip/Stop, autoplay count, or Continue, but each role needs its
+own intent and guard. Do not infer the action from an icon or displayed number.
+For wagering, purchase, and Gamble, distinguish request sent, result unknown,
+and result confirmed by the authoritative source.
+
 ## Orthogonal concerns
 
 | Concern | Illustrative states/data | Source of truth |
