@@ -3,7 +3,7 @@ name: slot-game-ui-skill
 description: "Design, implement, refactor, or review slot game UI: spin and bet controls, balances and wins, bonus counters, gifts, autoplay, dialogs, loading, history, replay, and optional game features. Use for slot interface tasks in any framework or engine. Excludes slot mathematics, RNG design, and standalone casino account or payment systems."
 license: MIT
 metadata:
-  version: "1.0.0" # x-release-please-version
+  version: "1.0.1" # x-release-please-version
 ---
 
 # Slot Game UI
