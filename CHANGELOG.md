@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/ksv90/slot-game-ui-skill/compare/v1.0.0...v1.0.1) (2026-10-13)
+
+
+### Bug Fixes
+
+* trigger patch release ([02b2f6a](https://github.com/ksv90/slot-game-ui-skill/commit/02b2f6a976987b4804b8774323d85cfc35ff87da))
+
 ## 1.0.0 (2026-10-13)
 
 
