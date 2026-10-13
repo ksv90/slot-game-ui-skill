@@ -1,0 +1,66 @@
+# Documentation template. Not a runtime configuration or approved product default.
+# null = unknown; set true/false only from current project evidence.
+profile_version: "1"
+project: null
+task_mode: null # specification | implementation | refactor | review
+scope: null
+evidence: [] # current brief, approved design, code contract, capability response
+platforms: []
+supported_orientations: []
+renderer_or_framework: null # use existing project choice
+locales: []
+money:
+  display_unit: null
+  currency_or_credit: null
+  canonical_precision: null
+  confirmed_balance_source: null
+  round_win_scope: null
+  bonus_win_scope: null
+capabilities:
+  autoplay: null
+  bonus_purchase: null
+  gamble: null
+  gifts: null
+  free_spins: null
+  respins: null
+  cascades: null
+  jackpots: null
+  tournaments: null
+  daily_rewards: null
+  mini_games: null
+  replay: null
+  fullscreen: null
+catalog_selection: []
+# Each selection: id, status (selected/excluded/deferred/unknown), reason, evidence.
+element_contracts: []
+# Each contract: id, visible_states, enabled_guard, intent, canonical_source,
+# units_and_scope, dependencies, recovery, layouts, verification.
+state_contract:
+  operation_identity: null
+  start_guard: null
+  result_and_settlement_events: null
+  deduplication_and_ordering: null
+  recovery_lookup: null
+  unknown_operation_policy: null
+  retry_limits: null
+  bet_change_policy: null
+  skip_semantics: null
+  feature_entry_and_continue: null
+  bonus_counter_events: null
+  autoplay_count_event: null
+  autoplay_stop_and_resume: null
+  purchase_quote_and_acceptance: null
+  gamble_choice_and_collect: null
+  replay_isolation: null
+presentation:
+  spin_skip_composition: null
+  speed_modes: []
+  win_categories_and_thresholds: []
+  dialog_priority_and_dismissal: null
+  preference_persistence: null
+  accessibility_target: null
+open_decisions: []
+verification:
+  planned: []
+  executed: []
+  blocked: []
