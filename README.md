@@ -71,8 +71,10 @@ for the checks performed before packaging.
 ## Development and releases
 
 There is no npm package or local release dependency. A Bash Git hook can check
-Conventional Commit subjects before a local commit. GitHub Actions validates
-commits, pull request titles, and the skill files. See [CONTRIBUTING.md](CONTRIBUTING.md)
+Conventional Commit subjects before a local commit. After changes reach `main`,
+GitHub Actions validates the commits and skill files before running Release Please.
+It does not run for pull requests, so bot-created release PRs do not require a
+separate approval to start checks. See [CONTRIBUTING.md](CONTRIBUTING.md)
 for setup and the exact checks.
 
 [Release Please](https://github.com/googleapis/release-please-action) proposes a

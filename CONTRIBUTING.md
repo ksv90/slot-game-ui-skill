@@ -24,9 +24,10 @@ feat!: change the public skill invocation
 
 A `BREAKING CHANGE:` footer is supported by Release Please when the subject is
 otherwise conventional. Git-generated merge subjects are exempt from the hook.
-GitHub Actions checks commit subjects and pull request titles too. Hooks can be
-bypassed locally; a repository owner can require the **Skill and commit checks**
-status before merging.
+GitHub Actions checks commit subjects after they reach `main`. It does not run
+on pull requests. Hooks can be bypassed locally, so review commit messages and
+the release pull request before merging. Do not require the **Skill and commit
+checks** status on pull requests; that check runs on `main` before publication.
 
 ## Validate and package locally
 
@@ -67,13 +68,18 @@ does not publish a version immediately. `feat` usually means minor, `fix` patch,
 and a breaking `!` or `BREAKING CHANGE:` major. Other accepted types can appear in
 history without opening a release pull request by themselves.
 
+Release Please creates the release pull request automatically. This workflow
+does not run on pull requests, including those created by `github-actions[bot]`,
+so GitHub does not ask for separate approval to start their checks. Review and
+merge the release pull request yourself when its changes are ready. The `main`
+workflow validates the skill and commits before it publishes a version.
+
 The workflow uses the repository's `GITHUB_TOKEN` by default. In repository
 Settings → Actions → General, allow GitHub Actions to create pull requests, and
-permit the workflow's requested write permissions. If branch rules require checks
-on the bot's release pull request, set the optional `RELEASE_PLEASE_TOKEN` secret
-to a suitable GitHub App or personal access token: pull requests made with the
-default `GITHUB_TOKEN` normally do not trigger another workflow run. This token is
-only needed for that case. The workflow does not change repository settings.
+permit the workflow's requested write permissions. An optional
+`RELEASE_PLEASE_TOKEN` secret can provide a different GitHub App or personal
+access token identity if repository policy requires it. The workflow does not
+change repository settings.
 
 The release job is serialized. It builds and uploads the ZIP in the same run as
 Release Please because a tag created using `GITHUB_TOKEN` does not normally start

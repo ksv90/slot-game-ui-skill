@@ -3,9 +3,6 @@ name: Check skill and prepare release
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
-    types: [opened, synchronize, reopened, edited]
   workflow_dispatch:
 
 permissions:
@@ -25,22 +22,14 @@ jobs:
         env:
           BEFORE_SHA: ${{ github.event.before }}
           AFTER_SHA: ${{ github.event.after }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
-          if [[ "$GITHUB_EVENT_NAME" == pull_request ]]; then
-            printf '%s\n' "$PR_TITLE" > "$RUNNER_TEMP/pr-title"
-            bash .githooks/commit-msg "$RUNNER_TEMP/pr-title"
-            range="$BASE_SHA..$HEAD_SHA"
-          elif [[ "$GITHUB_EVENT_NAME" == push ]]; then
-            if [[ "$BEFORE_SHA" =~ ^0+$ ]]; then
-              range="$AFTER_SHA"
-            else
-              range="$BEFORE_SHA..$AFTER_SHA"
-            fi
-          else
+          if [[ "$GITHUB_EVENT_NAME" != push ]]; then
             exit 0
+          fi
+          if [[ "$BEFORE_SHA" =~ ^0+$ ]]; then
+            range="$AFTER_SHA"
+          else
+            range="$BEFORE_SHA..$AFTER_SHA"
           fi
           git rev-list "$range" > "$RUNNER_TEMP/commit-shas"
           while IFS= read -r sha; do
@@ -54,7 +43,7 @@ jobs:
   release:
     name: Release Please and publish ZIP
     needs: checks
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
