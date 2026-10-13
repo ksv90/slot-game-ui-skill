@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+message_file=${1:?Commit message file is required}
+subject=$(sed -n '1p' "$message_file" | tr -d '\r')
+
+# Git's generated merge subjects are not authored Conventional Commits.
+if [[ "$subject" =~ ^Merge[[:space:]] ]]; then
+  exit 0
+fi
+
+if [[ "$subject" =~ ^(feat|fix|perf|docs|style|refactor|test|build|ci|chore|revert)(\([a-zA-Z0-9._/-]+\))?!?:[[:space:]]+[^[:space:]].*$ ]]; then
+  exit 0
+fi
+
+printf 'Commit subject must follow Conventional Commits, for example: fix(ui): correct spin state\n' >&2
+exit 1
