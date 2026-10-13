@@ -1,0 +1,89 @@
+name: Check skill and prepare release
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, edited]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Skill and commit checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check Conventional Commit messages
+        shell: bash
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.event.after }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" == pull_request ]]; then
+            printf '%s\n' "$PR_TITLE" > "$RUNNER_TEMP/pr-title"
+            bash .githooks/commit-msg "$RUNNER_TEMP/pr-title"
+            range="$BASE_SHA..$HEAD_SHA"
+          elif [[ "$GITHUB_EVENT_NAME" == push ]]; then
+            if [[ "$BEFORE_SHA" =~ ^0+$ ]]; then
+              range="$AFTER_SHA"
+            else
+              range="$BEFORE_SHA..$AFTER_SHA"
+            fi
+          else
+            exit 0
+          fi
+          git rev-list "$range" > "$RUNNER_TEMP/commit-shas"
+          while IFS= read -r sha; do
+            git show -s --format=%B "$sha" > "$RUNNER_TEMP/commit-message"
+            bash .githooks/commit-msg "$RUNNER_TEMP/commit-message"
+          done < "$RUNNER_TEMP/commit-shas"
+      - name: Validate skill and build ZIP
+        shell: bash
+        run: bash scripts/package-skill.sh
+
+  release:
+    name: Release Please and publish ZIP
+    needs: checks
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    concurrency:
+      group: slot-game-ui-skill-release
+      cancel-in-progress: false
+    steps:
+      - uses: googleapis/release-please-action@v5
+        id: release
+        with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v4
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          ref: ${{ steps.release.outputs.tag_name }}
+          persist-credentials: false
+      - name: Build the tagged skill
+        if: ${{ steps.release.outputs.release_created }}
+        shell: bash
+        env:
+          EXPECTED_VERSION: ${{ steps.release.outputs.version }}
+        run: bash scripts/package-skill.sh "$EXPECTED_VERSION"
+      - name: Attach ZIP and checksum to the GitHub Release
+        if: ${{ steps.release.outputs.release_created }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ steps.release.outputs.tag_name }}
+        run: gh release upload "$RELEASE_TAG" dist/skill.zip dist/skill.zip.sha256 --clobber

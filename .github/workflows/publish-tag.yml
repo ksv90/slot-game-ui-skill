@@ -1,0 +1,51 @@
+name: Repair release assets
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing version tag on main, for example v1.0.0
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: slot-game-ui-skill-release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      RELEASE_TAG: ${{ inputs.tag }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Validate tag input
+        shell: bash
+        run: |
+          [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || {
+            echo 'Expected a tag such as v1.0.0' >&2
+            exit 1
+          }
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Check tag ancestry and build ZIP
+        shell: bash
+        run: |
+          git show-ref --verify "refs/tags/$RELEASE_TAG"
+          git merge-base --is-ancestor "$RELEASE_TAG" origin/main
+          bash scripts/package-skill.sh "${RELEASE_TAG#v}"
+      - name: Create or repair release assets
+        shell: bash
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" dist/skill.zip dist/skill.zip.sha256 --clobber
+          else
+            gh release create "$RELEASE_TAG" dist/skill.zip dist/skill.zip.sha256 --verify-tag --generate-notes
+          fi

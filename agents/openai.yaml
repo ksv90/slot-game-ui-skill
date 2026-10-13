@@ -1,6 +1,6 @@
 interface:
-  display_name: "Slot Game UI"
+  display_name: "Slot Game UI Skill"
   short_description: "Design and review framework-neutral slot game UI"
-  default_prompt: "Use $slot-game-ui to design or review this slot game interface, selecting applicable catalog elements and documenting state transitions and project-specific decisions."
+  default_prompt: "Use $slot-game-ui-skill to design or review this slot game interface, selecting applicable catalog elements and documenting state transitions and project-specific decisions."
 policy:
   allow_implicit_invocation: true

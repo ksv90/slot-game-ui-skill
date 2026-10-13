@@ -1,7 +1,7 @@
 # Local installation and portability
 
-Version 1.0.0. Paths and product guidance checked 2026-10-13. The portable unit is
-the complete `slot-game-ui/` folder with SKILL.md, references, assets, and license.
+Paths and product guidance checked 2026-10-13. The portable unit is
+the complete `slot-game-ui-skill/` folder with SKILL.md, references, assets, and license.
 The skill does not execute tools or contact a service. Review instructions before
 enabling them. It is compatible at the file-format level with Agent Skills
 loaders; behavior has not been tested in every vendor's application.
@@ -16,35 +16,36 @@ multiple copies with the same name into both user and project scopes unnecessari
 macOS/Linux example, from the directory containing the downloaded ZIP:
 
 ```sh
-unzip -n skill.zip -d ./slot-game-ui-unpacked
+unzip -n skill.zip -d ./slot-game-ui-skill-unpacked
 mkdir -p "$HOME/.agents/skills"
-if [ -e "$HOME/.agents/skills/slot-game-ui" ]; then
+if [ -e "$HOME/.agents/skills/slot-game-ui-skill" ]; then
   printf '%s\n' 'Skill already exists; review and back it up before replacing it.'
 else
-  cp -R ./slot-game-ui-unpacked/slot-game-ui "$HOME/.agents/skills/slot-game-ui"
+  cp -R ./slot-game-ui-skill-unpacked/slot-game-ui-skill "$HOME/.agents/skills/slot-game-ui-skill"
 fi
 ```
 
-Use a fresh staging directory if `slot-game-ui-unpacked` already contains a previous
-version; `unzip -n` does not replace old files. For the source repository, copy
-`skills/slot-game-ui` rather than the repository root. Keep installation commands
+Use a fresh staging directory if `slot-game-ui-skill-unpacked` already contains a previous
+version; `unzip -n` does not replace old files. This repository has SKILL.md at its
+root. Prefer the Release ZIP for installation: it contains only skill files and
+omits release tooling and dependencies. Keep installation commands
 as user-invoked operations; merely reading this skill does not authorize installation.
 
 Windows PowerShell example, from the download directory:
 
 ```powershell
-Expand-Archive -Path .\skill.zip -DestinationPath .\slot-game-ui-unpacked
+Expand-Archive -Path .\skill.zip -DestinationPath .\slot-game-ui-skill-unpacked
 $slotSkillRoot = Join-Path $env:USERPROFILE '.agents\skills'
 New-Item -ItemType Directory -Force -Path $slotSkillRoot | Out-Null
-$slotSkillTarget = Join-Path $slotSkillRoot 'slot-game-ui'
+$slotSkillTarget = Join-Path $slotSkillRoot 'slot-game-ui-skill'
 if (Test-Path $slotSkillTarget) {
   Write-Output 'Skill already exists; review and back it up before replacing it.'
 } else {
-  Copy-Item -Recurse .\slot-game-ui-unpacked\slot-game-ui $slotSkillTarget
+  Copy-Item -Recurse .\slot-game-ui-skill-unpacked\slot-game-ui-skill $slotSkillTarget
 }
 ```
 
-Explicitly invoke `$slot-game-ui` in Codex CLI/IDE or select it through `/skills`.
+Explicitly invoke `$slot-game-ui-skill` in Codex CLI/IDE or select it through `/skills`.
 Where the UI uses `@` selection, select Slot Game UI from the skills interface.
 Codex can also select it when a task matches its description. If discovery does
 not update, restart the application. Installation alone does not force invocation
@@ -52,7 +53,7 @@ on every task. The included OpenAI policy allows implicit invocation.
 
 ## Project/team scope
 
-Copy the skill folder into `<game-repository>/.agents/skills/slot-game-ui` and
+Copy the skill folder into `<game-repository>/.agents/skills/slot-game-ui-skill` and
 commit it with the game's repository if the team chooses. Apply the same existing-
 folder check before copying. Current Codex scans repository `.agents/skills`
 locations from the current directory up to the repository root.
@@ -62,7 +63,7 @@ add a scoped rule to that existing file after reviewing the project's convention
 
 ```text
 For tasks that design, implement, refactor, or review slot game interfaces,
-read .agents/skills/slot-game-ui/SKILL.md and follow the relevant references.
+read .agents/skills/slot-game-ui-skill/SKILL.md and follow the relevant references.
 Preserve the current project scope, framework, and confirmed game contracts.
 Catalog entries are selection candidates, not universal feature requirements.
 ```
@@ -89,10 +90,11 @@ or equivalent instruction. Do not claim that one installation reaches all agents
 
 Review the new version, back up your local edits, and replace only this skill's
 folder; do not merge stale references silently. Uninstall by removing only the
-installed `slot-game-ui` folder and any explicit scoped rule you added. Avoid
+installed `slot-game-ui-skill` folder and any explicit scoped rule you added. Avoid
 editing global configuration unless you intentionally manage this skill there.
 
-For GitHub distribution use the complete source repository and publish skill.zip
-as a Release asset. Users can download it and follow this guide or ask their
-environment's skill installer to install `skills/slot-game-ui` from the repository
-at a reviewed tag/commit. A repository URL is not automatic global installation.
+GitHub Actions publishes skill.zip and its checksum as Release assets. Download
+the ZIP and follow this guide, or ask a repository-based skill installer to use
+the root path `.` of https://github.com/ksv90/slot-game-ui-skill at a reviewed tag
+or commit. Such an installer may retain source-only tooling; it is not needed
+to use the skill. A repository URL is not automatic global installation.
