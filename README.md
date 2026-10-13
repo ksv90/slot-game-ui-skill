@@ -34,10 +34,27 @@ this is not a verbatim transcript or a requirement to implement every item.
 
 ## Install and use
 
-Download **skill.zip** from the
-[latest GitHub Release](https://github.com/ksv90/slot-game-ui-skill/releases/latest).
-The archive contains one folder named `slot-game-ui-skill`. Follow
-[INSTALL.md](INSTALL.md), then invoke `$slot-game-ui-skill` in a compatible host.
+For a first-time installation in Codex on macOS, download the ready-made archive
+from the [latest GitHub Release](https://github.com/ksv90/slot-game-ui-skill/releases/latest)
+and unpack it into your personal skills directory. No repository clone or build
+tools are needed:
+
+```sh
+cd "$(mktemp -d)"
+curl -fL -O https://github.com/ksv90/slot-game-ui-skill/releases/latest/download/skill.zip
+curl -fL -O https://github.com/ksv90/slot-game-ui-skill/releases/latest/download/skill.zip.sha256
+if shasum -a 256 -c skill.zip.sha256; then
+  mkdir -p "$HOME/.agents/skills"
+  unzip -q skill.zip -d "$HOME/.agents/skills"
+fi
+```
+
+The checksum command should report `skill.zip: OK`; stop if it fails. The archive
+creates `~/.agents/skills/slot-game-ui-skill`. Open a new Codex chat and invoke
+`$slot-game-ui-skill`; restart Codex if the skill does not appear. For upgrades,
+other platforms, or project-scoped installation, follow [INSTALL.md](INSTALL.md)
+instead of unpacking over an existing skill folder.
+
 For environments without a loader, ask the agent to read SKILL.md and the relevant
 references on demand. OpenAI metadata in `agents/openai.yaml` is optional for other
 hosts; automatic discovery depends on the application.
