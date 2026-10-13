@@ -1,9 +1,10 @@
 # Optional feature catalog
 
-Grouped extensions from the available earlier assistant excerpt. Every family and
-subitem is optional. Select only supported mechanics and record selected/excluded/
-deferred/unknown. Variants sharing semantics can reuse one component. Values,
-thresholds, math, and policies require project evidence.
+Grouped extensions from the complete assistant-expanded catalog. Every family and
+subitem is a candidate, not a required feature. Select only supported mechanics
+and surfaces and record selected/excluded/deferred/unknown. Variants sharing
+semantics can reuse one component. Values, thresholds, math, and policies require
+project evidence.
 
 ## Controls and financial display
 
@@ -55,5 +56,25 @@ thresholds, math, and policies require project evidence.
 | F29 | Preloader | Game/provider logo/background/bar/percent/spinner/stage/assets/server/completed/Start | Real progress and readiness; failure handling |
 | F30 | Runtime wait | Fullscreen/compact/server/bonus/resource/mode/history/replay/rules/download/indeterminate/long-wait/Retry/delay message | Asset retry differs from uncertain money command |
 
-Dialog variants are in `catalog-dialogs.md`. Layout/accessibility guidance is an
-engineering addition, not an extra user-confirmed catalog.
+## Cross-cutting and host surfaces
+
+These families cover the later sections of the expanded catalog. They describe
+possible UI surfaces; the game client may render them, delegate them to the host,
+or omit them when unsupported.
+
+| ID | Family | Candidate elements/variants | Contract needed |
+| --- | --- | --- | --- |
+| F31 | Notices and game copy | Success/error/unavailable toasts; info/warning banners; contextual tooltips; reward, balance, bet, speed, autoplay, limit, multiplier, bonus, tournament, connection, and action-required notices; reel-area text/ticker/animated layer; prompts such as Good Luck, Press Spin, Collect, Feature Complete, Max Win | Severity, priority, placement, lifetime, deduplication, localization, and which messages need an action instead of a transient notice |
+| F32 | Reusable counters and timers | Spin/autoplay/free-spin/respin/bonus-attempt/collection/combination/cascade/multiplier/points/reward/task/gamble/line/ways counters; event, reward, gift, tournament, attempt, offer, session, auto-close/transition, server-wait timers | Count event and scope; canonical clock, pause/reconnect/expiry behavior, and whether a countdown is advisory or authoritative |
+| F33 | Embedded mini-game UI | Card, wheel, chest/door/character/hidden-object selection, multi-stage board/path/ladder/prize field, score collection, sequential reveal, stop-and-collect; rules, choices, counters, timers, result and confirmation surfaces | Feature identity, allowed choices, phase guards, confirmed result, resume/exit/collect behavior; F16 lists the mechanics |
+| F34 | Host/platform frame | Operator/provider branding, game/version/session/player identifiers; support/chat/lobby/profile/wallet/deposit; account/VIP/loyalty/bonus, promo/tournament/mission links | Which surfaces the host owns, allowed callbacks, privacy of identifiers, capability and unavailable states |
+| F35 | Limits and legal information | Regional/game restrictions, responsible-play entry, configured limits, time/spend reminders, reality check, session-end notice, terms/privacy/license/age information | Host-provided content and jurisdiction-specific requirements; do not invent policy, thresholds, or legal claims |
+| F36 | Onboarding and contextual help | First-run tutorial, control highlight, step-by-step feature explanation, skip, seen marker, contextual tooltip | Trigger, focus/input ownership, persistence, replay/reset, and whether guidance may interrupt a live round |
+| F37 | Interactive field objects | Tappable symbols and characters, objects with hints, hidden rewards, object selection, drag and drop, confirmations on reels | Active mode/phase, hit areas, feedback, accepted intent, cancellation, and accessibility alternatives |
+| F38 | Mode and scene transitions | Base/bonus/gamble and return, multiple fields, recovery of unfinished spin/bonus/multiplier/free spins/mini-game, theme/music/background changes | Canonical mode and progress, transition timing, restoration source, and safe handling of pending operations |
+| F39 | Responsive/system UI | Desktop/mobile and portrait/landscape composition, safe area/notches, field scaling, relocated controls, compact menu/expandable actions, rotate prompt, focus-loss/return, keyboard/touch/focus/pressed/disabled, system zoom and virtual-keyboard overlap | Supported environments, preserved action/state across reflow, and input/focus behavior; see layout guidance |
+| F40 | Localization and currencies | Multiple currencies/credits, precision and grouping, long values/translations, right-to-left layout, font adaptation, localized dynamic messages | Currency source and unit conversion, locale, supported languages, formatting, and no truncation of material amounts |
+
+Dialog variants are in `catalog-dialogs.md`. The cross-cutting families are still
+catalog possibilities; the engineering rules for them live in the state, contract,
+and layout references.

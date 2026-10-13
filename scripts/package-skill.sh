@@ -26,7 +26,7 @@ for directory in agents references assets; do
   }
 done
 
-for spec in 'C 36 catalog-core' 'F 30 catalog-features' 'D 18 catalog-dialogs'; do
+for spec in 'C 36 catalog-core' 'F 40 catalog-features' 'D 19 catalog-dialogs'; do
   read -r prefix total catalog <<< "$spec"
   file="references/$catalog.md"
   [[ -f "$file" ]] || { echo "Missing catalog: $file" >&2; exit 1; }

@@ -27,9 +27,16 @@ capabilities:
   jackpots: null
   tournaments: null
   daily_rewards: null
+  promotions: null
   mini_games: null
+  interactive_field_objects: null
+  onboarding: null
   replay: null
   fullscreen: null
+host_integration:
+  host_owned_surfaces: [] # wallet, support, limits, legal notices, or other supplied UI
+  navigation_callbacks: null
+  account_and_limit_sources: null
 catalog_selection: []
 # Each selection: id, status (selected/excluded/deferred/unknown), reason, evidence.
 element_contracts: []
@@ -58,6 +65,8 @@ presentation:
   win_categories_and_thresholds: []
   dialog_priority_and_dismissal: null
   preference_persistence: null
+  notice_priority_and_lifetime: null
+  timer_clock_and_expiry: null
   accessibility_target: null
 open_decisions: []
 verification:
